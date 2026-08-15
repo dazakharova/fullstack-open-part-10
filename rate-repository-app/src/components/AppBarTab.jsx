@@ -1,10 +1,20 @@
 import {Pressable, Text} from "react-native";
 import {Link} from "react-router-native";
+import theme from "../theme";
 
-const AppBarTab = ({text, style, path}) => {
+const styles = {
+  itemContainer: {
+    padding: 10,
+  },
+  itemText: {
+    color: theme.colors.appBarText,
+  }
+}
+
+const AppBarTab = ({text, path}) => {
   return (
-      <Pressable style={style.itemContainer}>
-        <Link to={path}><Text style={style.itemText}>{text}</Text></Link>
+      <Pressable style={styles.itemContainer}>
+      <Link to={path}><Text style={styles.itemText}>{text}</Text></Link>
       </Pressable>
   )
 }
