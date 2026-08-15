@@ -2,6 +2,7 @@ import Text from './Text';
 import { View, TextInput, Pressable } from 'react-native';
 import { useFormik } from 'formik';
 import theme from "../theme";
+import * as yup from "yup";
 
 const styles = {
   container: {
@@ -41,12 +42,24 @@ const styles = {
     fontWeight: theme.fontWeights.bold,
     fontSize: theme.fontSizes.subheading,
   },
+  inputError: {
+    borderColor: '#d73a4a',
+  },
 };
 
 const initialValues = {
   username: '',
   password: '',
 }
+
+const validationSchema = yup.object().shape({
+  username: yup
+      .string()
+      .required('Username is required'),
+  password: yup
+      .string()
+      .required('Password is required'),
+});
 
 const SignIn = () => {
   const onSubmit = (values) => {
@@ -55,24 +68,31 @@ const SignIn = () => {
 
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit,
   });
 
   return (
       <View stye={styles.container}>
         <TextInput
-            style={styles.formInput}
+            style={[styles.formInput, formik.errors.username ? styles.inputError : null]}
             placeholder="Username"
             value={formik.values.username}
             onChangeText={formik.handleChange('username')}
         />
+        {formik.touched.username && formik.errors.username && (
+            <Text style={{ color: '#d73a4a', marginHorizontal: 20 }}>{formik.errors.username}</Text>
+        )}
         <TextInput
-            style={styles.formInput}
+            style={[styles.formInput, formik.errors.password ? styles.inputError : null]}
             secureTextEntry={true}
             placeholder="Password"
             value={formik.values.password}
             onChangeText={formik.handleChange('password')}
         />
+        {formik.touched.password && formik.errors.password && (
+            <Text style={{ color: '#d73a4a', marginHorizontal: 20 }}>{formik.errors.password}</Text>
+        )}
         <Pressable style={styles.submitButton} onPress={formik.handleSubmit}>
           <Text>Sign in</Text>
         </Pressable>
