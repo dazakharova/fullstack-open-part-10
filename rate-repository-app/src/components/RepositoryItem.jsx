@@ -18,7 +18,9 @@ const RepositoryItem = ({item}) => {
   };
 
   return (
-      <View style={{ backgroundColor: theme.backgroundColors.repositoryItemBackground, padding: 10 }}>
+      <View
+          testID="repositoryItem"
+          style={{ backgroundColor: theme.backgroundColors.repositoryItemBackground, padding: 10 }}>
         <ItemHeader info={headerInfo} />
         <ItemMetrics metrics={metrics} />
       </View>
