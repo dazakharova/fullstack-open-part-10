@@ -11,10 +11,10 @@ const styles = {
   }
 }
 
-const AppBarTab = ({text, path}) => {
+const AppBarTab = ({ text, path, onPress = () => {} }) => {
   return (
-      <Pressable style={styles.itemContainer}>
-      <Link to={path}><Text style={styles.itemText}>{text}</Text></Link>
+      <Pressable style={styles.itemContainer} onPress={onPress}>
+        { path ? <Link to={path}><Text style={styles.itemText}>{text}</Text></Link> : <Text style={styles.itemText}>{text}</Text> }
       </Pressable>
   )
 }
